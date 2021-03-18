@@ -1,5 +1,21 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+
+const DB =
+  'mongodb+srv://gaire:Test123@cluster0.vxmh3.mongodb.net/mernstack?retryWrites=true&w=majority';
+
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log(`connection sucessful`);
+  })
+  .catch((err) => console.log(`no connection`));
 
 //middelware
 
