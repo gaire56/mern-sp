@@ -4,20 +4,9 @@ const express = require('express');
 const app = express();
 
 dotenv.config({ path: './config.env' });
+require('./db/connection');
 
-const DB = process.env.DATABASE;
-
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log(`connection sucessful`);
-  })
-  .catch((err) => console.log(`no connection`));
+const PORT = process.env.PORT;
 
 //middelware
 
@@ -43,6 +32,6 @@ app.get('/signup', (req, res) => {
   res.send('Hello from server, this is register page');
 });
 
-app.listen(3000, () => {
-  console.log('server is running at 3000');
+app.listen(PORT, () => {
+  console.log(`server is running at ${PORT}`);
 });
