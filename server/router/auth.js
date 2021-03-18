@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 // });
 /**promise end */
 
-/**using async ==> async start */
+/**using async ==> register path start */
 router.post('/register', async (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;
 
@@ -61,6 +61,29 @@ router.post('/register', async (req, res) => {
     console.log(error);
   }
 });
-/**async end */
+/**async register path end */
+
+/**login path start */
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'please fill the data' });
+    }
+
+    const userLogin = await User.findOne({ email: email });
+
+    console.log(userLogin);
+
+    if (!userLogin) {
+      res.status(400).json({ error: 'user error' });
+    } else {
+      res.json({ message: 'user signin successfully' });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+/**login path end */
 
 module.exports = router;
