@@ -1,15 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { NavLink } from 'react-router-dom';
+import logo from '../images/alogo.png';
 
 const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Navbar
-          </a>
+          <NavLink className="navbar-brand" to="#">
+            <img src={logo} alt="logo" width="90rem" />
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
