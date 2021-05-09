@@ -9,7 +9,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="#">
-            <img src={logo} alt="logo" width="90rem" />
+            <img src={logo} alt="logo" width="90lsrem" />
           </NavLink>
           <button
             className="navbar-toggler"
@@ -58,3 +58,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// 05-09-21
