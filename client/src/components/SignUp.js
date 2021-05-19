@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -36,6 +36,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const [user, setUser] = useState({
+    fullname: '',
+    email: '',
+    phone: '',
+    work: '',
+    password: '',
+    cpassword: '',
+  });
+
+  let name, value;
+
+  const handleInputs = (e) => {
+    console.log(e);
+    name = e.target.name;
+    value = e.target.value;
+
+    setUser({ ...user, [name]: value });
+  };
+
   const classes = useStyles();
 
   return (
@@ -53,6 +72,8 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 autoComplete="off"
+                value={user.name}
+                onChange={handleInputs}
                 name="fullName"
                 variant="outlined"
                 required
@@ -72,6 +93,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="off"
+                value={user.email}
+                onChange={handleInputs}
               />
             </Grid>
             <Grid item xs={12}>
@@ -84,6 +107,8 @@ export default function SignUp() {
                 label="Phone Number"
                 name="phone"
                 autoComplete="off"
+                value={user.phone}
+                onChange={handleInputs}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,10 +117,12 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="word"
+                id="work"
                 label="Your Profession"
                 name="work"
                 autoComplete="off"
+                value={user.work}
+                onChange={handleInputs}
               />
             </Grid>
             <Grid item xs={12}>
@@ -108,6 +135,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="off"
+                value={user.password}
+                onChange={handleInputs}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,6 +149,8 @@ export default function SignUp() {
                 type="password"
                 id="cpassword"
                 autoComplete="off"
+                value={user.cpassword}
+                onChange={handleInputs}
               />
             </Grid>
             <Grid item xs={12}>
