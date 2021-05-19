@@ -17,8 +17,40 @@ const About = () => {
                 <p className="profile-rating mt-3 mb-5">
                   RANKING: <span>1/10</span>
                 </p>
-                <ul className="nav nav-tabs" role="tablist">
-                  <li className="nav-item">
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      id="home-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#home"
+                      type="button"
+                      role="tab"
+                      aria-controls="home"
+                      aria-selected="true"
+                    >
+                      Home
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="profile-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#profile"
+                      type="button"
+                      role="tab"
+                      aria-controls="profile"
+                      aria-selected="false"
+                    >
+                      Timeline
+                    </button>
+                  </li>
+                </ul>
+
+                {/* <ul className="nav nav-tabs" role="tablist">
+                  <li className="nav-item" role="presentation">
                     <a
                       className="nav-link active"
                       id="home-tab"
@@ -30,7 +62,7 @@ const About = () => {
                       About
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item" role="presentation">
                     <a
                       className="nav-link"
                       id="profile-tab"
@@ -42,7 +74,7 @@ const About = () => {
                       Timeline
                     </a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
             <div className="col-md-2">
@@ -97,7 +129,7 @@ const About = () => {
                 >
                   <div className="row">
                     <div className="col-md-6">
-                      <label htmlFor="User Id">User Id</label>
+                      <label>User Id</label>
                     </div>
                     <div className="col-md-6">
                       <p>01234567</p>
@@ -113,39 +145,39 @@ const About = () => {
                   </div>
                   <div className="row mt-3">
                     <div className="col-md-6">
-                      <label>Name</label>
+                      <label>Email</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Anant Gaire</p>
-                    </div>
-                  </div>
-                  <div className="row mt-3">
-                    <div className="col-md-6">
-                      <label>Name</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Anant Gaire</p>
+                      <p>56.anant@gmail.com</p>
                     </div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-md-6">
-                      <label>Name</label>
+                      <label>Address</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Anant Gaire</p>
+                      <p>Kathmandu</p>
                     </div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-md-6">
-                      <label>Name</label>
+                      <label>Phone</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Anant Gaire</p>
+                      <p>9851205428</p>
+                    </div>
+                  </div>
+                  <div className="row mt-3">
+                    <div className="col-md-6">
+                      <label>Profession</label>
+                    </div>
+                    <div className="col-md-6">
+                      <p>Web Developer</p>
                     </div>
                   </div>
                 </div>
                 <div
-                  className="tab-pane fade"
+                  className="tab-pane fade show"
                   id="profile"
                   role="tabpanel"
                   aria-labelledby="profile-tab"
@@ -156,6 +188,38 @@ const About = () => {
                     </div>
                     <div className="col-md-6">
                       <p>Export</p>
+                    </div>
+                  </div>
+                  <div className="row mt-3">
+                    <div className="col-md-6">
+                      <label>Hourly Rate</label>
+                    </div>
+                    <div className="col-md-6">
+                      <p>15$/hr</p>
+                    </div>
+                  </div>
+                  <div className="row mt-3">
+                    <div className="col-md-6">
+                      <label>Total Projects</label>
+                    </div>
+                    <div className="col-md-6">
+                      <p>77</p>
+                    </div>
+                  </div>
+                  <div className="row mt-3">
+                    <div className="col-md-6">
+                      <label>English Level</label>
+                    </div>
+                    <div className="col-md-6">
+                      <p>Expert</p>
+                    </div>
+                  </div>
+                  <div className="row mt-3">
+                    <div className="col-md-6">
+                      <label>Test</label>
+                    </div>
+                    <div className="col-md-6">
+                      <p>Test</p>
                     </div>
                   </div>
                 </div>

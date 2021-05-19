@@ -1,11 +1,14 @@
 import React from 'react';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import ErrorPage from './components/ErrorPage';
 
 const App = () => {
   return (
@@ -41,21 +44,27 @@ const App = () => {
         </div>
       </Router> */}
       <Navbar />
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="/contact">
-        <Contact />
-      </Route>
-      <Route path="/signup">
-        <SignUp />
-      </Route>
-      <Route path="/signin">
-        <SignIn />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contact">
+          <Contact />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/signin">
+          <SignIn />
+        </Route>
+
+        <Route>
+          <ErrorPage />
+        </Route>
+      </Switch>
     </>
   );
 };
