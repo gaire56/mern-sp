@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Copyright from './Copyright';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const history = useHistory();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = res.json();
+
+    if (res.status === 400 || !data) {
+      window.alert('Invalid Login');
+      console.log('Invalid Login');
+    } else {
+      window.alert(' Login Sucess');
+      console.log(' Login Sucess');
+
+      history.push('/');
+    }
+  };
+
   const classes = useStyles();
 
   return (
@@ -62,7 +95,12 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form
+            className={classes.form}
+            noValidate
+            id="register-form"
+            method="POST"
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -70,9 +108,12 @@ export default function SignInSide() {
               fullWidth
               id="email"
               label="Email Address"
+              type="email"
               name="email"
               autoComplete="off"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -84,6 +125,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -97,6 +140,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={loginUser}
             >
               Log In
             </Button>

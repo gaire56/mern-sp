@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const history = useHistory();
   const [user, setUser] = useState({
-    fullname: '',
+    name: '',
     email: '',
     phone: '',
     work: '',
@@ -48,11 +50,56 @@ export default function SignUp() {
   let name, value;
 
   const handleInputs = (e) => {
-    console.log(e);
+    // console.log(e);
     name = e.target.name;
     value = e.target.value;
 
     setUser({ ...user, [name]: value });
+  };
+
+  const postData = async (e) => {
+    e.preventDefault();
+
+    const { name, email, phone, work, password, cpassword } = user;
+
+    const res = await fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        work,
+        password,
+        cpassword,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.status === 422 || !data) {
+      window.alert('Invalid Regestration');
+      console.log('Invalid Regestration');
+    } else {
+      window.alert(' Regestration Sucess');
+      console.log(' Regestration Sucess');
+
+      history.push('/signin');
+    }
+
+    // const data = await res.json();
+
+    // if (data.status === 422 || !data) {
+    //   window.alert('Invalid Regestration');
+    //   console.log('Invalid Regestration');
+    // } else {
+    //   window.alert(' Regestration Sucess');
+    //   console.log(' Regestration Sucess');
+
+    //   history.push('/signin');
+    // }
   };
 
   const classes = useStyles();
@@ -67,14 +114,14 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} method="POST" id="register-form">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="off"
                 value={user.name}
                 onChange={handleInputs}
-                name="fullName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
@@ -168,6 +215,8 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            value="register"
+            onClick={postData}
           >
             Sign Up
           </Button>
