@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 const Contact = () => {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
 
   useEffect(() => {
     userContact();
@@ -18,7 +23,12 @@ const Contact = () => {
 
       const data = await res.json();
       // console.log(data);
-      setUserData(data);
+      setUserData({
+        ...userData,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      });
 
       if (!res.status === 200) {
         const error = new Error(res.error);
@@ -28,6 +38,51 @@ const Contact = () => {
       console.log(err);
     }
   };
+
+  /**storing data */
+  const handleInputs = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  /**storing data end */
+
+  /**sending data to server */
+
+  const contactForm = async (e) => {
+    e.preventDefault();
+
+    const { name, email, phone, message } = userData;
+
+    const res = await fetch('/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      console.log('message not send');
+    } else {
+      alert('Message send');
+      setUserData({ ...userData, message: '' });
+    }
+  };
+
+  /**sending data to server end */
 
   return (
     <>
@@ -82,47 +137,56 @@ const Contact = () => {
             <div className="col-lg-10 offset-lg-1">
               <div className="contact_form_container mt-5 py-5">
                 <div className="contact_form_title">Get in Touch</div>
-                <form id="contact_form">
+                <form id="contact_form" method="POST">
                   <div className="contact_form_name d-flex justify-content-between align-item-between">
                     <input
+                      name="name"
                       type="text"
                       id="contact_form_email"
                       className="contact_form_email input_field"
                       value={userData.name}
+                      onChange={handleInputs}
                       placeholder="Your Name"
                       required="true"
                     />
                     <input
+                      name="email"
                       type="email"
                       id="contact_form_name"
                       className="contact_form_name input_field"
                       value={userData.email}
+                      onChange={handleInputs}
                       placeholder="Your Email"
                       required="true"
                     />
                     <input
+                      name="phone"
                       type="number"
                       id="contact_form_phone"
                       className="contact_form_phone input_field"
                       value={userData.phone}
+                      onChange={handleInputs}
                       placeholder="Your Phone Number"
                       required="true"
                     />
                   </div>
                   <div className="contact_form_text mt-5">
                     <textarea
-                      name=""
+                      name="message"
                       id=""
                       cols="90"
                       rows="10"
                       className="text_field contact_form_message"
                       placeholder="Your Message!..."
+                      value={userData.message}
+                      onChange={handleInputs}
                     ></textarea>
                   </div>
                   <div className="contact_form_button">
                     <button
                       type="submit"
                       className="button contact_submit_button"
+                      onClick={contactForm}
                     >
                       Send Message
                     </button>
