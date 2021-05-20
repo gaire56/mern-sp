@@ -118,7 +118,7 @@ router.get('/about', authenticate, (req, res) => {
 /**Get userData for ContactUS and Home page */
 
 router.get('/getdata', authenticate, (req, res) => {
-  console.log(`hello my getdata`);
+  // console.log(`hello my getdata`);
   res.send(req.rootUser);
 });
 
