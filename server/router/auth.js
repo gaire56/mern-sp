@@ -109,8 +109,19 @@ router.post('/login', async (req, res) => {
 /**About Us Page */
 
 router.get('/about', authenticate, (req, res) => {
-  console.log(`hello my about`);
+  // console.log(`hello my about`);
   res.send(req.rootUser);
 });
+
+/**About us page end */
+
+/**Get userData for ContactUS and Home page */
+
+router.get('/getdata', authenticate, (req, res) => {
+  console.log(`hello my getdata`);
+  res.send(req.rootUser);
+});
+
+/**Get userData for ContactUS and Home page end */
 
 module.exports = router;
