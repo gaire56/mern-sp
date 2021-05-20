@@ -1,7 +1,7 @@
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const authenticate = require('../middlewar/authenticate');
 
 require('../db/connection');
@@ -110,7 +110,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/about', authenticate, (req, res) => {
   console.log(`hello my about`);
-  res.send('Hello from server, this is about page');
+  res.send(req.rootUser);
 });
 
 module.exports = router;

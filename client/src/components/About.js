@@ -1,27 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import anantpic from '../images/anant1.jpg';
+import anant from '../images/Anant.jpg';
+import { useHistory } from 'react-router-dom';
 
 const About = () => {
+  const [userData, setUserData] = useState({});
+  const history = useHistory();
+
+  useEffect(() => {
+    callAboutPage();
+  }, []);
+
+  const callAboutPage = async () => {
+    try {
+      const res = await fetch('/about', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+      // console.log(data);
+      setUserData(data);
+
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log(err);
+      history.push('/signin');
+    }
+  };
+
   return (
     <>
       <div className="container emp-profile mt-5">
-        <form method="">
+        <form method="GET">
           <div className="row">
             <div className="col-md-4">
-              <img src={anantpic} alt="anant" width="200px" height="200px" />
+              <img
+                src={userData.name === 'Anant Gaire' ? anantpic : anant}
+                alt="anant"
+                width="200px"
+                height="200px"
+              />
             </div>
             <div className="col-md-6">
               <div className="profile-head">
-                <h5>Anant Gaire</h5>
-                <h6>Web Developer</h6>
+                <h5>{userData.name}</h5>
+                <h6>{userData.work}</h6>
                 <p className="profile-rating mt-3 mb-5">
                   RANKING: <span>1/10</span>
                 </p>
 
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation">
+                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                  <li className="nav-item" role="presentation">
                     <button
-                      class="nav-link active"
+                      className="nav-link active"
                       id="home-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#home"
@@ -33,9 +72,9 @@ const About = () => {
                       Home
                     </button>
                   </li>
-                  <li class="nav-item" role="presentation">
+                  <li className="nav-item" role="presentation">
                     <button
-                      class="nav-link"
+                      className="nav-link"
                       id="profile-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#profile"
@@ -132,7 +171,7 @@ const About = () => {
                       <label>User Id</label>
                     </div>
                     <div className="col-md-6">
-                      <p>01234567</p>
+                      <p>{userData._id}</p>
                     </div>
                   </div>
                   <div className="row mt-3">
@@ -140,7 +179,7 @@ const About = () => {
                       <label>Name</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Anant Gaire</p>
+                      <p>{userData.name}</p>
                     </div>
                   </div>
                   <div className="row mt-3">
@@ -148,23 +187,23 @@ const About = () => {
                       <label>Email</label>
                     </div>
                     <div className="col-md-6">
-                      <p>56.anant@gmail.com</p>
+                      <p>{userData.email}</p>
                     </div>
                   </div>
-                  <div className="row mt-3">
+                  {/* <div className="row mt-3">
                     <div className="col-md-6">
                       <label>Address</label>
                     </div>
                     <div className="col-md-6">
                       <p>Kathmandu</p>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="row mt-3">
                     <div className="col-md-6">
                       <label>Phone</label>
                     </div>
                     <div className="col-md-6">
-                      <p>9851205428</p>
+                      <p>{userData.phone}</p>
                     </div>
                   </div>
                   <div className="row mt-3">
@@ -172,7 +211,7 @@ const About = () => {
                       <label>Profession</label>
                     </div>
                     <div className="col-md-6">
-                      <p>Web Developer</p>
+                      <p>{userData.work}</p>
                     </div>
                   </div>
                 </div>

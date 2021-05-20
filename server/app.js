@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-Parser');
+app.use(cookieParser());
+
 dotenv.config({ path: './config.env' });
 require('./db/connection');
 // const User = require('./models/userSchema')
@@ -10,6 +13,9 @@ require('./db/connection');
 app.use(express.json());
 
 app.use(require('./router/auth'));
+
+// const cookieParser = require('cookie-parser');
+// app.use(cookieParser());
 
 const PORT = process.env.PORT;
 
