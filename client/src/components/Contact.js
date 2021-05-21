@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Contact = () => {
+  const history = useHistory();
+
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -36,6 +39,7 @@ const Contact = () => {
       }
     } catch (err) {
       console.log(err);
+      history.push('/signin');
     }
   };
 

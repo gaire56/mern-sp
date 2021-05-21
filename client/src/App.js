@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
 import { Switch, Route } from 'react-router-dom';
 import ErrorPage from './components/ErrorPage';
+import Logout from './components/Logout';
 
 const App = () => {
   return (
@@ -59,6 +60,9 @@ const App = () => {
         </Route>
         <Route path="/signin">
           <SignIn />
+        </Route>
+        <Route path="/logout">
+          <Logout />
         </Route>
 
         <Route>

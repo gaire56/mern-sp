@@ -156,4 +156,14 @@ router.post('/contact', authenticate, async (req, res) => {
 
 /**Contact Us page */
 
+/**Logout page */
+
+router.get('/logout', (req, res) => {
+  console.log(`hello my logout`);
+  res.clearCookie('jwttoken', { path: '/' });
+  res.status(200).send('User logout');
+});
+
+/**Logout page */
+
 module.exports = router;
