@@ -1,0 +1,47 @@
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+
+const cookieParser = require('cookie-Parser');
+app.use(cookieParser());
+
+dotenv.config({ path: './config.env' });
+require('./db/connection');
+// const User = require('./models/userSchema')
+
+app.use(express.json());
+
+app.use(require('./router/auth'));
+
+// const cookieParser = require('cookie-parser');
+// app.use(cookieParser());
+
+const PORT = process.env.PORT || 5000;
+
+// app.get('/about',  (req, res) => {
+//   console.log(`hello my about`);
+//   res.send('Hello from server, this is about page');
+// });
+// app.get('/contact', (req, res) => {
+//   res.send('Hello from server, this is contact page');
+// });
+// app.get('/signin', (req, res) => {
+//   res.send('Hello from server, this is login page');
+// });
+// app.get('/signup', (req, res) => {
+//   res.send('Hello from server, this is register page');
+// });
+
+//Heroku
+if (process.env.NODE_ENV == 'production') {
+  app.use(express.static('clent/build'));
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+app.listen(PORT, () => {
+  console.log(`server is running at ${PORT}`);
+});
